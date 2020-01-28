@@ -1,5 +1,8 @@
 from flask import Flask
 from flask import request
+from flask_cors import CORS
+
+
 import pickle
 
 from textDataCleaning import text_data_cleaning
@@ -9,6 +12,7 @@ from sklearn.externals import joblib
 
 classifier = joblib.load(" news_classifier.pkl")
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/')
