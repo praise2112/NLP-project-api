@@ -7,4 +7,3 @@ itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 Werkzeug==0.15.6
-en-core-web-sm==2.2.5
