@@ -23,7 +23,7 @@ def hello_world():
 @app.route('/classifyNews', methods=['GET', 'POST'])
 def classifyNews():
 
-    text = request.args.get('text')
+    text = request.form.get('text')
     result = dict()
 
     result['prediction'] = classifier.predict([text])[0]
