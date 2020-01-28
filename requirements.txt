@@ -1,4 +1,4 @@
-en_core_web_sm==2.2.5
+en-core-web-sm==2.2.5
 sklearn==0.0
 spacy==2.2.3
 Click==7.0
