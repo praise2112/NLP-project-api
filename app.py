@@ -1,9 +1,12 @@
 from flask import Flask
 from flask import request
 from flask_cors import CORS
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.externals import joblib
+from nltk.corpus import stopwords
 import pandas as pd
 import pickle
 # heroku git:remote -a {your-project-name}
@@ -77,9 +80,15 @@ def sentiment():
 
     data = request.json
     text = data['text']
+    stop_words = stopwords.words('english')
+    text1 = text.lower()
 
+    processed_doc1 = ' '.join([word for word in text1.split() if word not in stop_words])
+    sa = SentimentIntensityAnalyzer()
+    dd = sa.polarity_scores(text=text1)
+    compound = round((1 + dd['compound'])/2, 2)
     result = dict()
-    result['prediction'] = classifier.predict([text])[0]
+    result['prediction'] = compound
 
     return result
 
