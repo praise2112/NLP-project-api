@@ -6,6 +6,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.externals import joblib
+import nltk
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 import pandas as pd
 import pickle
