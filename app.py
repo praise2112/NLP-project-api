@@ -13,56 +13,60 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
+
+
 @app.route('/')
-@crossdomain(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def hello_world():
-    return 'Hello World!'
+  return 'Hello World!'
 
 
 @app.route('/classifyNews', methods=['GET', 'POST'])
-@crossdomain(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def classify_news():
-    data = request.json
-    text = data['text']
+  data = request.json
+  text = data['text']
 
-    result = dict()
-    result['prediction'] = news_classifier.predict([text])[0]
+  result = dict()
+  result['prediction'] = news_classifier.predict([text])[0]
 
-    return result
+  return result
 
 
 @app.route('/classifySpam', methods=['GET', 'POST'])
-@crossdomain(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def classify_spam():
-    # Extract feature with CountVectorize
-    cv = CountVectorizer()
-    data = request.json
-    text = data['text']
-    vect = cv.transform([text]).toarray()
-    pred = spam_classifier.predict(vect)
-    print(pred)
+  # Extract feature with CountVectorize
+  cv = CountVectorizer()
+  data = request.json
+  text = data['text']
+  vect = cv.transform([text]).toarray()
+  pred = spam_classifier.predict(vect)
+  print(pred)
 
-    result = dict()
-    result['prediction'] = str(pred[0])
+  result = dict()
+  result['prediction'] = str(pred[0])
 
-    return result
+  return result
 
 
 @app.route('/sentiment', methods=['GET', 'POST'])
-@crossdomain(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def sentiment():
-    data = request.json
-    text = data['text']
-    text1 = text.lower()
+  data = request.json
+  text = data['text']
+  text1 = text.lower()
 
-    sa = SentimentIntensityAnalyzer()
-    dd = sa.polarity_scores(text=text1)
-    compound = round((1 + dd['compound'])/2, 2)
-    result = dict()
-    result['prediction'] = compound
+  sa = SentimentIntensityAnalyzer()
+  dd = sa.polarity_scores(text=text1)
+  compound = round((1 + dd['compound']) / 2, 2)
+  result = dict()
+  result['prediction'] = compound
 
-    return result
+  return result
 
 
 if __name__ == '__main__':
-    app.run()
+  app.run()
