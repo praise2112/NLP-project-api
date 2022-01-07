@@ -14,11 +14,13 @@ CORS(app)
 
 
 @app.route('/')
+@crossdomain(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def hello_world():
     return 'Hello World!'
 
 
 @app.route('/classifyNews', methods=['GET', 'POST'])
+@crossdomain(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def classify_news():
     data = request.json
     text = data['text']
@@ -30,6 +32,7 @@ def classify_news():
 
 
 @app.route('/classifySpam', methods=['GET', 'POST'])
+@crossdomain(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def classify_spam():
     # Extract feature with CountVectorize
     cv = CountVectorizer()
@@ -46,6 +49,7 @@ def classify_spam():
 
 
 @app.route('/sentiment', methods=['GET', 'POST'])
+@crossdomain(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def sentiment():
     data = request.json
     text = data['text']
