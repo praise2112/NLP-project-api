@@ -5,22 +5,14 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.externals import joblib
+import joblib
 import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 import pandas as pd
-import pickle
 # heroku git:remote -a {your-project-name}
 
-import pickle
-
-from textDataCleaning import text_data_cleaning
-
-
-from sklearn.externals import joblib
-
-classifier = joblib.load(" news_classifier.pkl")
+classifier = joblib.load("news_classifier.pkl")
 app = Flask(__name__)
 CORS(app)
 
@@ -60,10 +52,10 @@ def classifySpam():
     X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                         test_size=0.33,
                                                         random_state=42)
-    from sklearn.naive_bayes import MultinomialNB
 
     clf = MultinomialNB()
     clf.fit(X_train, y_train)
+    joblib.dump(clf, 'spam_classifier.pkl')
 
     data = request.json
     text = data['text']
