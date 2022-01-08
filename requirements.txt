@@ -4,7 +4,7 @@ gunicorn==19.9.0
 itsdangerous
 Jinja2
 MarkupSafe
-flask-cors==3.0.8
+flask-cors==3.0.9
 vaderSentiment==3.3.2
 jolib
 joblib==1.1.0
