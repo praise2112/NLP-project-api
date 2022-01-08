@@ -1,5 +1,5 @@
 Click
-Flask==1.1.1
+Flask==2.0.2
 gunicorn==19.9.0
 itsdangerous
 Jinja2
@@ -9,5 +9,5 @@ vaderSentiment==3.3.2
 jolib
 joblib==1.1.0
 scikit-learn==1.0.2
-spacy
 https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.2.0/en_core_web_trf-3.2.0.tar.gz
+spacy==3.2.1
